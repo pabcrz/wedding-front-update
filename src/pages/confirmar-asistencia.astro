@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Guests from "../components/Guests";
+---
+
+<BaseLayout title="Confirmar Asistencia">
+  <main class="flex flex-col w-full h-dvh items-center">
+    <section class="w-full flex justify-center items-center relative">
+      <div
+        class="rounded-full absolute bg-white flex flex-col justify-center size-48"
+      >
+        <img src="/icons/ring.svg" alt="ring" class="w-full absolute" />
+        <img src="/images/InfoTransparent.png" alt="info" />
+      </div>
+      <img
+        src="/images/bg-assist.png"
+        alt="foto de Arely y Carlos"
+        class="object-cover min-h-60 hidden md:block"
+      />
+      <img
+        src="/images/bg-assist-mobile-2.png"
+        alt="foto de Arely y Carlos"
+        class="object-cover min-h-60 md:hidden"
+      />
+    </section>
+    <section class="p-4 w-full md:max-w-screen-md h-full flex flex-col">
+      <h1 class="text-center text-3xl pt-2 text-secondaryFont">
+        Confirmar Asistencia
+      </h1>
+      <p class="text-lg p-4 text-center">
+        Este día es especial para nosotros, y más aún si tú estás presente. Por
+        eso, te pedimos que confirmes tu asistencia antes del
+        <strong> 15 de Septiembre.</strong>
+      </p>
+      <Guests client:only="react" />
+    </section>
+  </main>
+</BaseLayout>

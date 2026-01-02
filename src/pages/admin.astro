@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AdminPanel from "../components/AdminPanel";
+---
+
+<BaseLayout title="Administración">
+  <main class="flex flex-col w-full max-w-screen-lg h-dvh">
+    <AdminPanel client:only="react" />
+  </main>
+</BaseLayout>
