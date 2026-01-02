@@ -1,16 +1,16 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Location from "../components/Location.astro";
+import Gifts from "../components/Gifts.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Carlos y Arely">
+  <main class="min-w-full h-dvh flex flex-col items-center">
+    <Header />
+    <Location />
+    <Gifts />
+    <Footer />
+  </main>
+</BaseLayout>

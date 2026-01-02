@@ -4,11 +4,28 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.6"
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/tailwind": "^5.1.5",
+    "@astrojs/vercel": "^9.0.2",
+    "@fontsource-variable/domine": "^5.2.8",
+    "@fontsource-variable/montserrat": "^5.2.8",
+    "@fontsource/alice": "^5.2.8",
+    "@fontsource/zen-kaku-gothic-new": "^5.2.7",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.6",
+    "echarts": "^6.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-image-gallery": "^1.4.0",
+    "sharp": "^0.34.5",
+    "sonner": "^2.0.7",
+    "tailwindcss": "^3.4.19"
   }
 }
