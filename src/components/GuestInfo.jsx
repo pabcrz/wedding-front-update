@@ -1,8 +1,17 @@
+import { useEffect, useState } from 'react'
+
 export default function GuestInfo({
   guestChart,
   categoryFilter,
   onCategoryChange,
 }) {
+  const [selectValue, setSelectValue] = useState(categoryFilter || '')
+
+  // Sincronizar el valor del select cuando categoryFilter cambia desde el padre
+  useEffect(() => {
+    setSelectValue(categoryFilter || '')
+  }, [categoryFilter])
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-3">
@@ -11,9 +20,10 @@ export default function GuestInfo({
         </label>
         <select
           id="categoryFilter"
-          value={categoryFilter || ''}
+          value={selectValue}
           onChange={(e) => {
             const value = e.target.value
+            setSelectValue(value)
             onCategoryChange(value)
           }}
           className="border-2 rounded border-mainBG focus:outline-none p-1"

@@ -27,46 +27,7 @@ function AdminPanelContent() {
     girls: 0,
   });
 
-  useEffect(() => {
-    toast.promise(connection(), {
-      loading: "Cargando invitados...",
-      success: (data) => {
-        setGuests(data.data.guests);
-        setLoading(false);
-        const dataGuests = filterGuests(data.data.guests);
-        setGuestsFiltered(dataGuests.guestsAsist);
-        setSelectedButton("Todos");
-        return `Invitados disponibles...`;
-      },
-      error: "Error",
-    });
-  }, [refreshGuests]);
-
-  useEffect(() => {
-    if (!loading) {
-      handleGuests();
-    }
-  }, [loading]);
-
-  function handleGuests(asistencia) {
-    const data = filterGuests(guests, asistencia);
-    let filteredData = data.guestsAsist;
-
-    if (categoryFilter) {
-      filteredData = applyCategoryFilter(filteredData, categoryFilter);
-    }
-
-    const chartData = {
-      man: data.man.length,
-      woman: data.woman.length,
-      boys: data.boys.length,
-      girls: data.girls.length,
-    };
-    setGuestsFiltered(filteredData);
-    console.log(filteredData);
-    setGuestChart(chartData);
-  }
-
+  // Función para aplicar filtro de categoría
   function applyCategoryFilter(guestsList, category) {
     const data = filterGuests(guestsList);
     switch (category) {
@@ -83,6 +44,71 @@ function AdminPanelContent() {
     }
   }
 
+  useEffect(() => {
+    toast.promise(connection(), {
+      loading: "Cargando invitados...",
+      success: (data) => {
+        setGuests(data.data.guests);
+        setLoading(false);
+        
+        // Reaplicar los filtros activos después de recargar los datos
+        const asistencia = selectedButton === "Todos" ? undefined : selectedButton;
+        const filteredData = filterGuests(data.data.guests, asistencia);
+        
+        let finalData = filteredData.guestsAsist;
+        
+        // Si hay filtro de categoría activo, aplicarlo también
+        if (categoryFilter) {
+          finalData = applyCategoryFilter(finalData, categoryFilter);
+        }
+        
+        // Actualizar estadísticas del gráfico
+        const chartData = {
+          man: filteredData.man.length,
+          woman: filteredData.woman.length,
+          boys: filteredData.boys.length,
+          girls: filteredData.girls.length,
+        };
+        
+        setGuestsFiltered(finalData);
+        setGuestChart(chartData);
+        
+        return `Invitados disponibles...`;
+      },
+      error: "Error",
+    });
+  }, [refreshGuests]);
+
+  useEffect(() => {
+    if (!loading) {
+      handleGuests();
+    }
+  }, [loading]);
+
+  function handleGuests(asistencia, categoryFilterOverride = undefined) {
+    const data = filterGuests(guests, asistencia);
+    let filteredData = data.guestsAsist;
+
+    // Usar categoryFilterOverride si se proporciona, sino usar categoryFilter del estado
+    const activeFilter = categoryFilterOverride !== undefined ? categoryFilterOverride : categoryFilter;
+    
+    if (activeFilter) {
+      filteredData = applyCategoryFilter(filteredData, activeFilter);
+    }
+
+    const chartData = {
+      man: data.man.length,
+      woman: data.woman.length,
+      boys: data.boys.length,
+      girls: data.girls.length,
+    };
+    setGuestsFiltered(filteredData);
+    console.log(filteredData);
+    setGuestChart(chartData);
+  }
+
+
+
   function handleCategoryClick(category) {
     if (categoryFilter === category) {
       setCategoryFilter(null);
@@ -92,7 +118,17 @@ function AdminPanelContent() {
       const asistencia = selectedButton === "Todos" ? undefined : selectedButton;
       const data = filterGuests(guests, asistencia);
       const filteredData = applyCategoryFilter(data.guestsAsist, category);
+      
+      // Actualizar estadísticas del gráfico basadas en los datos filtrados
+      const chartData = {
+        man: data.man.length,
+        woman: data.woman.length,
+        boys: data.boys.length,
+        girls: data.girls.length,
+      };
+      
       setGuestsFiltered(filteredData);
+      setGuestChart(chartData);
     }
   }
 
@@ -114,7 +150,7 @@ function AdminPanelContent() {
                 className={getButtonClasses("Todos")}
                 onClick={() => {
                   setCategoryFilter(null);
-                  handleGuests();
+                  handleGuests(undefined, null); // Pasar null explícitamente
                   setSelectedButton("Todos");
                 }}
               >
@@ -124,7 +160,7 @@ function AdminPanelContent() {
                 className={getButtonClasses("si")}
                 onClick={() => {
                   setCategoryFilter(null);
-                  handleGuests("si");
+                  handleGuests("si", null); // Pasar null explícitamente
                   setSelectedButton("si");
                 }}
               >
@@ -134,7 +170,7 @@ function AdminPanelContent() {
                 className={getButtonClasses("no")}
                 onClick={() => {
                   setCategoryFilter(null);
-                  handleGuests("no");
+                  handleGuests("no", null); // Pasar null explícitamente
                   setSelectedButton("no");
                 }}
               >
@@ -144,7 +180,7 @@ function AdminPanelContent() {
                 className={getButtonClasses("sin confirmar")}
                 onClick={() => {
                   setCategoryFilter(null);
-                  handleGuests("sin confirmar");
+                  handleGuests("sin confirmar", null); // Pasar null explícitamente
                   setSelectedButton("sin confirmar");
                 }}
               >
