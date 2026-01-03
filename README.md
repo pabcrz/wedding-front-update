@@ -64,7 +64,7 @@ wedding-front-update/
 - Category-based filtering (men, women, boys, girls)
 
 ### 3. Interactive Analytics
-- Real-time pie chart visualization
+- Realpie chart visualization
 - Click-to-filter functionality on chart segments
 - Automatic hiding of empty categories
 - Dynamic statistics display
@@ -160,16 +160,6 @@ The application integrates with a backend API providing:
 - `POST /guests` - Create new guest
 - `PATCH /guests/:id` - Update guest information
 - `DELETE /guests/:id` - Remove guest
-
-## � Recent Improvements
-
-- Reduced search minimum from 7 to 3 characters
-- Implemented global category filter context
-- Added interactive chart with click filtering
-- Created modular GuestInfo component
-- Fixed girls count bug in statistics
-- Consolidated category display in guest cards
-- Added disabled states for empty categories
 
 ## 📄 License
 
