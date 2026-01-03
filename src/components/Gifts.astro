@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import amazon from "../../public/icons/amazon.svg";
+import liverpool from "../../public/icons/liverpool-logo.svg";
+---
+
+<section class="bg-[#f0eeee] w-full p-4 py-8">
+  <h2 class="text-mainFont text-center font-medium text-3xl">
+    Mesa de regalos
+  </h2>
+  <div
+    class="flex md:gap-40 md:justify-center flex-col md:flex-row items-center"
+  >
+    <a
+      href="https://www.amazon.com.mx/wedding/share/Carlosyarely"
+      target="_blank"
+      class="hover:opacity-60"
+    >
+      <Image src={amazon} alt="Amazon logo" width={150} />
+    </a>
+    <a
+      href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/51484230"
+      target="_blank"
+      class="hover:opacity-60"
+    >
+      <Image src={liverpool} alt="Liverpool logo" height={50} />
+    </a>
+  </div>
+</section>
